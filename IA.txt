@@ -1,0 +1,74 @@
+Estado: Uma configuração unica de ambiente e ações
+
+Espaço de Estados: Conjuntos de Todos os estados atingiveis
+por uma máquina e as ações que mapeiam uns nos outros
+
+Arvore de Busca: Estrutura de Dados que organiza estados
+em uma sequencia ordenada, permitindo pesquisa
+
+Nó de Busca: Um dos estados dentro da arvore de busca
+
+Estado Objetivo: Resultado desejado a ser obtido pela operação
+
+Função Sucessor: Maneira como é escolhido o estado 
+seguinte ao atual
+
+Custo do Caminho: A distância lógica entre o estado
+atual e um outro estado
+
+
+2 a) Estado inicial: Não há documentos a serem tratados
+ Estado objetivo: Registro de Entrada Ilegal
+ Função Sucessor: Verifica se o arquivo fornecido é do tipo ilegal
+ Função de Custo: 1 para cada passo
+
+b) Estado inicial: Os três jarros estão vazios
+Estado objetivo: Umd dos jarros possui exatamente 1 litro de agua
+Função Sucessor: Encher um dos Jarros, Esvaziar um dos jarros, Transferir a agua de um jarro para o outro
+Função Custo: 1 para cada operação
+
+3) Uma busca informada possui heuristicas e portanto pode atribuir pesos diferentes
+para cada um dos caminhos permitindo a função sucessor ser mais eficiente
+
+4) Pelo tempo em passos que demora para atingir a resposta correta
+
+5)Busca em Largura
+Busca em Profundidade
+Busca em Profundidade Limitada
+
+6) a) Busca em profundidade vai até o final de cada ramo da arvore de busca antes de voltar
+é mais rapida do que a em largura, mas consome mais memória
+
+b) Busca em largura consulta sequencialmente cada nó da arvore, mais lenta do que a em profundidade
+mas consome mais memória
+
+c) Busca gulosa: Procura sempre o ramo com o menor custo que vai na direção do objetivo
+mais rápida do que o A* mas nem sempre encontra o melhor caminho
+
+d) A*: Recalcula o menor caminho a cada passo que dá, sempre encontra o menor caminho desde que
+seus pre-requisitos sejam cumpridos, mas consome mais memória do que a busca gulosa
+
+7) Busca em largura: Encontrar o menor caminho entre dois nós de um grafo, como o algoritmo de 
+busca em largura produra por todos os nór proximos da raiz sequencialmente ele acharia todos os caminhos entre os nós mais
+rápido 
+
+Busca em profundidade: Descobrir a melhor jogada possivel numa partida de xadrez. Como cada jogada no xadrez abre espaço para mais 
+uma série de novas jogadas, um algoritmo que se distancia rapidamente da raiz como o busca em profundidade descobriria a melhor jogada
+possivel mais rapidamente
+
+8) Heuristica é um peso atribuido para uma aresta num espaço de estados
+tomando experiencia como professor. Uma heuristica é admissivel se para cada nodo, o valor nunca ultrapassa o custo real
+do melhor caminho  desse novo até o objetivo. Uma heuristica é consistente se a estimativa é sempre menor ou igual do que a 
+distancia de qualquer nó adjatence até o objetivo mais o custo para se chegar nesse nó adjacente
+
+9) Tem que estar usando uma heuristica admissivel e não pode estar resolvendo mais de um problema
+
+10) a) A -> B -> C -> D -> E -> F -> G -> H -> I
+b) A -> B - > D -> B -> E -> H -> E -> I
+c) A -> C -> F -> C -> G -> K
+d) A -> C -> A -> B -> E -> B -> A -> C -> G -> K
+
+11) Significa que h1 chega a um resultado ótimo mais com um custo menor e mais rápido do que h2.
+A busca com h1 será mais eficiente do que com h2
+
+12
