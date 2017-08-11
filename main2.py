@@ -5,7 +5,7 @@ from pybrain.supervised.trainers import BackpropTrainer
 
 net = buildNetwork(16, 30, 26)
 
-trainingset = open("sampple-trainingset", "r")
+trainingset = open("trainingset.txt", "r")
 traininglines = trainingset.read().splitlines()
 DS = SupervisedDataSet( 16, 26 )
 for line in traininglines:
@@ -18,7 +18,7 @@ for line in traininglines:
     values = list(map(int, values))
     DS.appendLinked( entries, values )
 trainer = BackpropTrainer(net, DS)
-trainer.trainUntilConvergence()
+print( trainer.train())
 #testingset = open("testingset.txt", "r")
 #testinglines = testingset.read().splitlines()
 #testing_data = []

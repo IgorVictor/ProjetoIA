@@ -17,7 +17,7 @@ for line in traininglines:
     entries = list(map(int, entries))
     values = list(map(int, values))
     DS.appendLinked( entries, values )
-trainer = BackpropTrainer(net, DS)
+trainer = BackpropTrainer(net, D)
 trainer.trainUntilConvergence()
 #testingset = open("testingset.txt", "r")
 #testinglines = testingset.read().splitlines()
