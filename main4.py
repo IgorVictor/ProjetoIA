@@ -4,11 +4,10 @@ from pybrain.datasets import SupervisedDataSet
 from pybrain.supervised.trainers import BackpropTrainer
 
 def compare_list(a, b):
-        for x in range(a.len):
+        for x in range(len(a)):
                 if a[x] != b[x]:
                         return False
         return True
-
 
 def normalize_list(a):
        lista2 = []
@@ -19,7 +18,7 @@ def normalize_list(a):
               lista2.append(1)
        return lista2
 
-net = buildNetwork(16, 30, 26)
+net = buildNetwork(16, 21, 26)
 
 trainingset = open("trainingset.txt", "r")
 traininglines = trainingset.read().splitlines()
@@ -27,41 +26,21 @@ DS = SupervisedDataSet( 16, 26 )
 for line in traininglines:
     line = line.replace("[", "")
     line = line.replace("]", "")
-    values = line.split("!")
-    entries = values[0].split(",")
-    values = values[1].split(",")
+    splitline = line.split("!")
+    entries = splitline[0].split(",")
+    desired =  splitline[1].split(",")
     entries = list(map(int, entries))
-    values = list(map(int, values))
+    desired = list(map(int, desired))
     
-    DS.appendLinked( entries, values )
-trainer = BackpropTrainer(net, DS)
-print( trainer.train())
-print( trainer.train())
-print( trainer.train())
+    DS.appendLinked( entries, desired )
+trainer = BackpropTrainer(net, DS, 0.01, momentum=0.02)
+for i in range(1, 40):
+    print(trainer.train())
+
 testingset = open("testingset.txt", "r")
 testinglines = testingset.read().splitlines()
-TDS = SupervisedDataSet( 16, 26 )
-#for line in testinglines:
-#    line = line.replace("[", "")
-#    line = line.replace("]", "")
-#   values = line.split("!")
-#    entries = values[0].split(",")
-#    values = values[1].split(",")
-#    entries = list(map(int, entries))
-#    output = net.activate(entries)
-#    treated_output = normalize_list(output)
-#    values = list(map(int, values))
-#    print("Expected")
-#    print(values)
-#    print("got")
-#    print(treated_output)
-#    print("from")
-#    print(output)
-    
-
-
-#testinglines = testingset.read().splitlines()
-#testing_data = []
+counter = 0
+correctanswers = 0
 for line in testinglines:
     line = line.replace("[", "")
     line = line.replace("]", "")
@@ -70,8 +49,26 @@ for line in testinglines:
     values = values[1].split(",")
     entries = list(map(int, entries))
     values = list(map(int, values))
-    TDS.appendLinked( entries, values )
-print(trainer.activateOnDataSet(TDS))
-#training_data, validation_data, test_data = mnistloader.load_data_wrapper()
-#net = network.Network([16,30, 26])
-#net.SGD(training_data, 30, 10, 3.0, test_data=testing_data)
+    outputlist = normalize_list(net.activate(entries))
+    counter = counter +1
+    if compare_list(values, outputlist):
+        correctanswers = correctanswers +1
+print (correctanswers)
+print (counter)
+print (1.0 - (float(correctanswers)/float(counter))) 
+#testingset = open("testingset.txt", "r")
+#testinglines = testingset.read().splitlines()
+#TDS = SupervisedDataSet( 16, 26 )
+#for line in testinglines:
+#    line = line.replace("[", "")
+#    line = line.replace("]", "")
+#    values = line.split("!")
+#    entries = values[0].split(",")
+#    values = values[1].split(",")
+#    entries = list(map(int, entries))
+#    output = net.activate(entries)
+#    values = list(map(int, values))
+#    print("Expected")
+#    print(values)
+#    print("got")
+#    print(output)

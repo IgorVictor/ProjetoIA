@@ -1,0 +1,46 @@
+import mnistloader
+from pybrain.tools.shortcuts import buildNetwork
+from pybrain.datasets import SupervisedDataSet
+from pybrain.supervised.trainers import BackpropTrainer
+
+def compare_list(a, b):
+        for x in range(a.len):
+                if a[x] != b[x]:
+                        return False
+        return True
+
+net = buildNetwork(6, 10, 4)
+
+trainingset = open("carrostraining.txt", "r")
+traininglines = trainingset.read().splitlines()
+DS = SupervisedDataSet( 6, 4 )
+for line in traininglines:
+    line = line.replace("[", "")
+    line = line.replace("]", "")
+    values = line.split("!")
+    entries = values[0].split(",")
+    values = values[1].split(",")
+    entries = list(map(int, entries))
+    values = list(map(int, values))
+    
+    DS.appendLinked( entries, values )
+trainer = BackpropTrainer(net, DS)
+for i in range(1, 40):
+    print( trainer.train())
+
+#testingset = open("testingset.txt", "r")
+#testinglines = testingset.read().splitlines()
+#TDS = SupervisedDataSet( 16, 26 )
+#for line in testinglines:
+#    line = line.replace("[", "")
+#    line = line.replace("]", "")
+#    values = line.split("!")
+#    entries = values[0].split(",")
+#    values = values[1].split(",")
+#    entries = list(map(int, entries))
+#    output = net.activate(entries)
+#    values = list(map(int, values))
+#    print("Expected")
+#    print(values)
+#    print("got")
+#    print(output)

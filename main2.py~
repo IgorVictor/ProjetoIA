@@ -71,7 +71,7 @@ for line in testinglines:
     entries = list(map(int, entries))
     values = list(map(int, values))
     TDS.appendLinked( entries, values )
-print(trainer.activateOnDataSet(TDS))
+print(trainer.testOnData(TDS, return_targets=True))
 #training_data, validation_data, test_data = mnistloader.load_data_wrapper()
 #net = network.Network([16,30, 26])
 #net.SGD(training_data, 30, 10, 3.0, test_data=testing_data)
