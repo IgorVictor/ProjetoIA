@@ -18,9 +18,9 @@ def normalize_list(a):
               lista2.append(1)
        return lista2
 
-net = buildNetwork(16, 21, 26)
+net = buildNetwork(16, 150, 26)
 
-trainingset = open("trainingset.txt", "r")
+trainingset = open("fulltrainingset.txt", "r")
 traininglines = trainingset.read().splitlines()
 DS = SupervisedDataSet( 16, 26 )
 for line in traininglines:
@@ -37,7 +37,7 @@ trainer = BackpropTrainer(net, DS, 0.01, momentum=0.02)
 for i in range(1, 40):
     print(trainer.train())
 
-testingset = open("testingset.txt", "r")
+testingset = open("fulltestingset.txt", "r")
 testinglines = testingset.read().splitlines()
 counter = 0
 correctanswers = 0
